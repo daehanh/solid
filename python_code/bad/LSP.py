@@ -8,41 +8,29 @@
 import copy
 
 class Person(object):
-
     def __init__(self, position):
         self.position = position
-
-    def walk_North(self, dist):
+    def walk_north(self, dist):
         self.position[1] += dist
-
-    def walk_East(self, dist):
+    def walk_east(self, dist):
         self.position[0] += dist
-
 # `Prisoner` is a logicall natural extension of `Person`
 # since they fulfill the "is-a" relation: a `Prisoner` is a `Person`.
 # However, such extension violate LSP in this case.
 class Prisoner(Person):
     PRISON_LOCATION = [3, 3]
-
     def __init__(self):
         super(Prisoner, self).__init__(copy.copy(self.PRISON_LOCATION))
         self.is_free = False
-
-# The issue here is that `Prisoner` inherite `walk_North` and `walk_East` methods
+# The issue here is that `Prisoner` inherite `walk_north` and `walk_east` methods
 # from the `Person` which is not logically correct for the `Prisoner` class.
-
 def main():
     prisoner = Prisoner()
-    print "The prisoner trying to walk to north by 10 and east by -3."
-    
-    try:
-        prisoner.walk_North(10)
-        prisoner.walk_East(-3)
-    except:
-        pass
-    
-    print "The location of the prison: {}".format(prisoner.PRISON_LOCATION)
-    print "The current position of the prisoner: {}".format(prisoner.position)
+    print("The prisoner trying to walk to north by 10 and east by -3.")    
+    prisoner.walk_north(10)
+    prisoner.walk_east(-3)    
+    print("The location of the prison: {}".format(prisoner.PRISON_LOCATION))
+    print("The current position of the prisoner: {}".format(prisoner.position))
 
 if __name__ == "__main__":
     main()
